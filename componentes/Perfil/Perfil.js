@@ -1,9 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import api from "../../service/api.js";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 function Perfil({ navigation }) {
+
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [foto, setFoto] = useState('');
+    const [cargo, setCargo] = useState('');
+    const [status, setStatus] = useState('');
+    const [departamento, setDepartamento] = useState('');
+
+    const carregarDados = async()=>{
+        const usuarioStorage = await AsyncStorage.getItem('usuario');
+
+        if(usuarioStorage){
+            const usuario = JSON.parse(usuarioStorage);
+            const user = usuario.responsavel;
+            console.log(user)
+            //setNome(user.id)
+            setNome(user.nome)
+            setEmail(user.email)
+            setTelefone(user.telefone)
+            //setFoto(user.foto)
+            setCargo(user.cargo)
+            //setStatus(user.status)
+            setDepartamento(user.departamento)
+            
+        }else{
+            console.log("Erro ao buscar dados no Storage")
+        }
+    }
+
+    useEffect(()=>{
+        carregarDados();
+    })
 
     const [responsavel, setResponsavel] = useState();
 
@@ -18,7 +53,7 @@ function Perfil({ navigation }) {
                 </View>
 
                 <View style={estilo.nomeContainer}>
-                    <Text style={estilo.nome}>Antonio Branco</Text>
+                    <Text style={estilo.nome}>{nome}</Text>
                 </View>
             </View>
 
@@ -29,7 +64,7 @@ function Perfil({ navigation }) {
                         <Ionicons name='mail-outline' size={24} />
                     </View>
 
-                    <Text style={estilo.valor}>antonio@gmail.com</Text>
+                    <Text style={estilo.valor}>{email}</Text>
                 </View>
 
                 <View style={estilo.item}>
@@ -37,7 +72,7 @@ function Perfil({ navigation }) {
                         <Ionicons name='call-outline' size={24} />
                     </View>
                     
-                    <Text style={estilo.valor}>(44) 99999-9999</Text>
+                    <Text style={estilo.valor}>{telefone}</Text>
                 </View>
 
                 <View style={estilo.item}>
@@ -45,7 +80,7 @@ function Perfil({ navigation }) {
                         <Ionicons name='business-outline' size={24} />
                     </View>
                     
-                    <Text style={estilo.valor}>TI</Text>
+                    <Text style={estilo.valor}>{departamento}</Text>
                 </View>
 
                 <View style={estilo.item}>
@@ -53,7 +88,7 @@ function Perfil({ navigation }) {
                         <Ionicons name='id-card-outline' size={24} />
                     </View>
                     
-                    <Text style={estilo.valor}>Desenvolvedor</Text>
+                    <Text style={estilo.valor}>{cargo}</Text>
                 </View>
             </View>
 

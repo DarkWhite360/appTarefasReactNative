@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Alert, Text, View, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import api from "../../service/api";
+
 
 function Login({ navigation }) {
     const [email, setEmail] = useState('antonio@gmail.com');
@@ -17,11 +19,20 @@ function Login({ navigation }) {
                 email,
                 senha
             });
+
+            const usuario = JSON.stringify(response.data)
+            const tokenAPI = '123456';
+            // const tokenAPI = JSON.stringfy(response.data.token);
+
+            await AsyncStorage.setItem('token', tokenAPI);
+            await AsyncStorage.setItem('usuario', usuario);
+
             Alert.alert("Sucesso", "Login realizado com sucesso!");
             console.log("ok")
             navigation.replace('Main');
+
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.mensagem);
             Alert.alert("Erro", error.response?.data?.mensagem || "E-mail ou senha inválidos.");
         }
 
