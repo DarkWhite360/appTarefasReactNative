@@ -6,9 +6,23 @@ export default function ListarResponsaveis({ navigation }) {
 
     const [responsaveis, setResponsaveis] = useState([]);
 
+    const buscarResponsavel = async () => {
+        try {
+            const resposta = await api.get("/responsaveis");
+            setResponsaveis (resposta.data);
+            console.log(resposta.data)
+        } catch(error){
+            console.log("Erro ao buscar responsáveis: " + error.response.data.mensagem);
+        }
+    }
+
+    useEffect(() =>{
+        buscarResponsavel();
+    }, []);
+
     return(
         <View style={estilo.container}>
-            <View style={estilo.topo}>
+            
                 <View style={estilo.topo}>
                     <Text style={estilo.textoTopo}>Lista de Responsaveis</Text>
                     <TouchableOpacity style={estilo.botaoCadastrar}
@@ -33,7 +47,7 @@ export default function ListarResponsaveis({ navigation }) {
                                     <TouchableOpacity style={estilo.botaoEditar} onPress={()=> navigation.navigate('EditarResponsavel' ,{item})}>
                                         <Text style={estilo.textoBotao}>Editar</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={estilo.botaoExcluir} onPress={()=> navigation.navigate('ExcluirResponsavel' ,{item})}>
+                                    <TouchableOpacity style={estilo.botaoExcluir}>
                                         <Text style={estilo.textoBotao}>Excluir</Text>
                                     </TouchableOpacity>  
 
@@ -43,7 +57,7 @@ export default function ListarResponsaveis({ navigation }) {
                     }
                 </ScrollView>
 
-            </View>
+            
 
         </View>
     )

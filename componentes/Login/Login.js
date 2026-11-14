@@ -6,7 +6,7 @@ import api from "../../service/api";
 
 function Login({ navigation }) {
     const [email, setEmail] = useState('antonio@gmail.com');
-    const [senha, setSenha] = useState('@12345');
+    const [senha, setSenha] = useState('123456');
 
     const entrar = async () => {
         if (!email || !senha) {

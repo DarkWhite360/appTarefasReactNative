@@ -1,14 +1,15 @@
 import { useState } from "react";
-import {Text, View, StyleSheet} from "react-native";
+import { Text, View, StyleSheet, } from "react-native";
 
-function ListarResponsavel({route}){
+function ListarResponsavel({ route }) {
 
-    const ItemRota = route.params;
+    const itemRota = route.params;
 
-    const[item, setItem] = useState(ItemRota.item);
+    const [item, setItem] = useState(itemRota.item);
 
-    return(
-        <View>
+    return (
+        <View style={estilo.container}>
+            <Text style={estilo.responsavel}># {item.id}</Text>
             <Text style={estilo.responsavel}>Nome: {item.nome}</Text>
             <Text style={estilo.responsavel}>E-mail: {item.email}</Text>
             <Text style={estilo.responsavel}>Telefone: {item.telefone}</Text>
@@ -141,7 +142,7 @@ const estilo = StyleSheet.create({
         flex: 1,
         height: 38,
         width: 150,
-        marginBottom:10,
+        marginBottom: 10,
         backgroundColor: '#190d75',
         borderRadius: 8,
         justifyContent: 'center',
