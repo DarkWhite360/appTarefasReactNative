@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { Text, View, StyleSheet, } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 
 function ListarResponsavel({ route }) {
 
@@ -9,27 +10,90 @@ function ListarResponsavel({ route }) {
 
     return (
         <View style={estilo.container}>
-            <Text style={estilo.responsavel}># {item.id}</Text>
-            <Text style={estilo.responsavel}>Nome: {item.nome}</Text>
-            <Text style={estilo.responsavel}>E-mail: {item.email}</Text>
-            <Text style={estilo.responsavel}>Telefone: {item.telefone}</Text>
-            <Text style={estilo.responsavel}>Cargo: {item.cargo}</Text>
-            <Text style={estilo.responsavel}>Status: {item.status}</Text>
-            <Text style={estilo.responsavel}>Departamento: {item.departamento}</Text>
+
+            {/* Cabeçalho */}
+            <View style={estilo.topo}>
+                <Text style={estilo.textoTopo}>
+                    Detalhes do Responsável
+                </Text>
+            </View>
+
+            {/* Conteúdo */}
+            <ScrollView contentContainerStyle={estilo.conteudo}>
+
+                <View style={estilo.itemLista}>
+
+                    <Text style={estilo.numero}>
+                        Responsável #{item.id}
+                    </Text>
+
+                    <Text style={estilo.titulo}>
+                        {item.nome}
+                    </Text>
+
+                    <View style={estilo.divisor} />
+
+                    <Text style={estilo.label}>
+                        E-mail
+                    </Text>
+
+                    <Text style={estilo.responsavel}>
+                        {item.email || "Não informado"}
+                    </Text>
+
+                    <View style={estilo.divisor} />
+
+                    <Text style={estilo.label}>
+                        Telefone
+                    </Text>
+
+                    <Text style={estilo.responsavel}>
+                        {item.telefone || "Não informado"}
+                    </Text>
+
+                    <View style={estilo.divisor} />
+
+                    <Text style={estilo.label}>
+                        Cargo
+                    </Text>
+
+                    <Text style={estilo.responsavel}>
+                        {item.cargo || "Não informado"}
+                    </Text>
+
+                    <View style={estilo.divisor} />
+
+                    <Text style={estilo.label}>
+                        Status
+                    </Text>
+
+                    <Text style={estilo.status}>
+                        {item.status || "Não informado"}
+                    </Text>
+
+                    <View style={estilo.divisor} />
+
+                    <Text style={estilo.label}>
+                        Departamento
+                    </Text>
+
+                    <Text style={estilo.responsavel}>
+                        {item.departamento || "Não informado"}
+                    </Text>
+
+                </View>
+
+            </ScrollView>
+
         </View>
-    )
+    );
 }
 
 const estilo = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: '#f2f4f7',
-    },
-
-    todo: {
-        flex: 1,
-        width: '100%',
-        alignItems: 'center',
     },
 
     topo: {
@@ -55,10 +119,11 @@ const estilo = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    listaResponsavel: {
+    conteudo: {
+        flexGrow: 1,
         width: '100%',
-        paddingVertical: 15,
-        paddingHorizontal: 12,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
         alignItems: 'center',
     },
 
@@ -66,8 +131,7 @@ const estilo = StyleSheet.create({
         width: '100%',
         backgroundColor: '#ffffff',
         borderRadius: 10,
-        padding: 15,
-        marginBottom: 12,
+        padding: 18,
 
         borderWidth: 1,
         borderColor: '#e0e0e0',
@@ -82,77 +146,46 @@ const estilo = StyleSheet.create({
         shadowRadius: 4,
     },
 
-    titulo: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#222222',
+    numero: {
+        fontSize: 13,
+        color: '#777777',
+        fontWeight: '600',
         marginBottom: 8,
     },
 
-    responsavel: {
-        fontSize: 14,
-        color: '#555555',
+    titulo: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        color: '#222222',
+        marginBottom: 12,
+    },
+
+    label: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: '#777777',
         marginBottom: 5,
+        marginTop: 5,
+    },
+
+    responsavel: {
+        fontSize: 15,
+        color: '#555555',
+        fontWeight: '500',
     },
 
     status: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '600',
-        color: '#333333',
-        marginBottom: 10,
+        color: '#2563eb',
     },
 
-    acoes: {
-        width: '100%',
-        minHeight: 45,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 5,
-        gap: 8,
+    divisor: {
+        height: 1,
+        backgroundColor: '#e5e7eb',
+        marginVertical: 12,
     },
 
-    botaoVerMais: {
-        flex: 1,
-        height: 38,
-        backgroundColor: '#2563eb',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    botaoEditar: {
-        flex: 1,
-        height: 38,
-        backgroundColor: '#16a34a',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    botaoExcluir: {
-        flex: 1,
-        height: 38,
-        backgroundColor: '#dc2626',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    botaoCadastrar: {
-        flex: 1,
-        height: 38,
-        width: 150,
-        marginBottom: 10,
-        backgroundColor: '#190d75',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textoBotao: {
-        color: '#ffffff',
-        fontSize: 14,
-        fontWeight: '600',
-    },
 });
 
 export default ListarResponsavel;
