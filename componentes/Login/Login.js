@@ -21,8 +21,8 @@ function Login({ navigation }) {
             });
 
             const usuario = JSON.stringify(response.data)
-            const tokenAPI = '123456';
-            // const tokenAPI = JSON.stringfy(response.data.token);
+            //const tokenAPI = '123456';
+            const tokenAPI = response.data.token;
 
             await AsyncStorage.setItem('token', tokenAPI);
             await AsyncStorage.setItem('usuario', usuario);
@@ -32,7 +32,7 @@ function Login({ navigation }) {
             navigation.replace('Main');
 
         } catch (error) {
-            console.log(error.response.data.mensagem);
+            console.log(error.response);
             Alert.alert("Erro", error.response?.data?.mensagem || "E-mail ou senha inválidos.");
         }
 
